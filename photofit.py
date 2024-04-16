@@ -31,35 +31,63 @@ def draw_mustache(color):
 def draw_beard(color):
     pass
 
-def draw_hair(color, style):
-    pass
+def draw_hair(color, style, current_turtle):
+    COLORS = {"black": "black"}
 
-def draw_face(skin_color):
-    pass
+    turtle_color = COLORS[color]
+
+    current_turtle.pu()
+    current_turtle.goto(0, -100)
+    current_turtle.pd()
+
+    current_turtle.color(turtle_color)
+    current_turtle.begin_fill()
+    current_turtle.circle(200, 180)
+    current_turtle.end_fill()
+
+
+def draw_face(skin_color, current_turtle):
+    COLORS = {"white": "wheat",
+              "brown": "peru",
+              "black": "saddle brown"}
+    
+    skin_turtle_color = COLORS[skin_color]
+
+    current_turtle.pu()
+    current_turtle.goto(0, -100)
+    current_turtle.pd()
+    
+    current_turtle.color(skin_turtle_color)
+    current_turtle.begin_fill()
+    current_turtle.circle(200)
+    current_turtle.end_fill()
 
 def main():
     print("Welcome to photofit")
     input("Press [ENTER] to start or [Ctrl-C] to quit")
-    print("[*] Setting up turtle...")
+    print("Setting up turtle...")
     
     window = turtle.Screen()
     t = turtle.Turtle()
 
-    print("[-] Enter colour of skin")
-    print("    Available: None")
-    skin_color = input("  > ")
+    print("Enter colour of skin")
+    print("(white, brown, black)")
+    skin_color = input("> ")
 
-    print("[-] Enter colour of hair")
-    print("    Available: black, brown, blonde")
-    hair_color = input("  > ")
+    print("Enter colour of hair")
+    print("(black, brown, blonde)")
+    hair_color = input("> ")
 
-    print("[-] Enter style of hair")
-    print("    Available: short, long")
-    hair_style = input("  > ")
+    ##    print("Enter style of hair")
+    ##    print("(short, long)")
+    ##    hair_style = input("> ")
     
-    print("[-] Enter colour of eyes")
-    print("    Available: black, brown, blue, green")
-    eye_color = input("  > ")
+    print("Enter colour of eyes")
+    print("(black, brown, blue, green)")
+    eye_color = input("> ")
+
+    draw_face(skin_color, t)
+    draw_hair(hair_color, "not implemented", t)
 
 if __name__ == "__main__":
     main()
