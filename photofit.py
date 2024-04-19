@@ -31,20 +31,58 @@ def draw_mustache(color):
 def draw_beard(color):
     pass
 
+def draw_forehead(skin_color, current_turtle):
+    COLORS = {"white": "wheat",
+              "brown": "peru",
+              "black": "saddle brown"}
+    
+    turtle_color = COLORS[skin_color]
+    
+    current_turtle.pu()
+    current_turtle.goto(150, 100)
+    current_turtle.pd()
+
+    current_turtle.color(turtle_color)
+    current_turtle.seth(90)
+    current_turtle.begin_fill()
+    current_turtle.circle(150, 180)
+    current_turtle.end_fill()
+
 def draw_hair(color, style, current_turtle):
     COLORS = {"black": "black"}
 
     turtle_color = COLORS[color]
 
     current_turtle.pu()
-    current_turtle.goto(0, -100)
+    current_turtle.goto(200, 100)
     current_turtle.pd()
 
     current_turtle.color(turtle_color)
+    current_turtle.seth(90)
     current_turtle.begin_fill()
     current_turtle.circle(200, 180)
     current_turtle.end_fill()
 
+def draw_long_hair(color, current_turtle):
+    COLORS = {"black": "black"}
+
+    turtle_color = COLORS[color]
+
+    current_turtle.pu()
+    current_turtle.goto(-200, -100)
+    current_turtle.pd()
+
+    current_turtle.color(turtle_color)
+    current_turtle.seth(0)
+    current_turtle.begin_fill()
+    
+    for i in range(2):
+        current_turtle.fd(400)
+        current_turtle.lt(90)
+        current_turtle.fd(200)
+        current_turtle.lt(90)
+    
+    current_turtle.end_fill()
 
 def draw_face(skin_color, current_turtle):
     COLORS = {"white": "wheat",
@@ -69,25 +107,34 @@ def main():
     
     window = turtle.Screen()
     t = turtle.Turtle()
+    t.speed(9)
 
     print("Enter colour of skin")
     print("(white, brown, black)")
-    skin_color = input("> ")
+    skin_color = input("> ").lower()
 
     print("Enter colour of hair")
     print("(black, brown, blonde)")
-    hair_color = input("> ")
+    hair_color = input("> ").lower()
 
-    ##    print("Enter style of hair")
-    ##    print("(short, long)")
-    ##    hair_style = input("> ")
+    print("Enter style of hair")
+    print("(short, long)")
+    hair_style = input("> ").lower()
     
     print("Enter colour of eyes")
     print("(black, brown, blue, green)")
-    eye_color = input("> ")
+    eye_color = input("> ").lower()
 
+    print("Drawing...")
+    
+    if hair_style == "long":
+        draw_long_hair(hair_color, t)
+    
     draw_face(skin_color, t)
     draw_hair(hair_color, "not implemented", t)
+    draw_forehead(skin_color, t)
+
+    input("Finished, press [ENTER] to quit...")
 
 if __name__ == "__main__":
     main()
