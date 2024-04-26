@@ -65,20 +65,26 @@ def draw_eyes(color, current_turtle):
     draw_eye(turtle_color, 75, 75, t)
     draw_eye(turtle_color, -75, 75, t)
 
-def draw_lips(current_turtle):
+def draw_lips(gender, current_turtle):
+    """Draws lips"""
     t = current_turtle
 
+    LIP_WIDTHS = {"": 12.5,
+                  "male": 10,
+                  "female": 15}
+    lip_width = LIP_WIDTHS[gender]
+    
     t.color("#e76a6a")
 
     t.pu()
     t.goto(-50, 0)
     t.pd()
     t.begin_fill()
-    t.goto(-30, 15)
-    t.goto(30, 15)
+    t.goto(-30, lip_width)
+    t.goto(30, lip_width)
     t.goto(50, 0)
-    t.goto(30, -15)
-    t.goto(-30, -15)
+    t.goto(30, -lip_width)
+    t.goto(-30, -lip_width)
     t.goto(-50, 0)
     t.end_fill()
 
@@ -88,13 +94,16 @@ def draw_lips(current_turtle):
 
 def draw_glasses_lens(current_turtle):
     t = current_turtle
+    # Positions turtle
     t.pu()
     t.fd(50)
     t.rt(90)
     t.fd(50)
     t.seth(0)
     t.pd()
+    # Draws lens
     t.circle(50)
+    # Re-positions turtle for further drawing
     t.pu()
     t.fd(50)
     t.lt(90)
@@ -123,6 +132,7 @@ def draw_beard(color):
     pass
 
 def draw_forehead(skin_color, current_turtle):
+    """Draws forehead to reduce size of hair"""
     COLORS = {"white": "wheat",
               "brown": "peru",
               "black": "saddle brown"}
@@ -137,13 +147,15 @@ def draw_forehead(skin_color, current_turtle):
     t.color(turtle_color)
     t.seth(90)
     t.begin_fill()
-    t.circle(150.1, 180) # Gets rid of small hair line
+    t.circle(150, 180)
     t.end_fill()
 
 def draw_hair(color, style, current_turtle):
+    """Draws upper part of hair"""
     COLORS = {"black": "black",
               "brown": "#341f0a",
-              "blonde": "#d7d67c"}
+              "blonde": "#d7d67c",
+              "gray": "gray"}
 
     turtle_color = COLORS[color]
     t = current_turtle
@@ -159,9 +171,11 @@ def draw_hair(color, style, current_turtle):
     t.end_fill()
 
 def draw_long_hair(color, current_turtle):
+    """Draws lower part of long hair"""
     COLORS = {"black": "black",
               "brown": "#341f0a",
-              "blonde": "#d7d67c"}
+              "blonde": "#d7d67c",
+              "gray": "gray"}
 
     turtle_color = COLORS[color]
     t = current_turtle
@@ -198,26 +212,34 @@ def draw_face(skin_color, current_turtle):
     current_turtle.circle(200)
     current_turtle.end_fill()
 
-def main():
-    print("Welcome to photofit")
-    input("Press [ENTER] to start or [Ctrl-C] to quit")
+def main_loop():
     print("Setting up turtle...")
 
+    # Sets up turtle. Speed 0 = instant. Turtle hidden for further speed.
     window = turtle.Screen()
     t = turtle.Turtle()
-    t.speed(9)
+    t.ht()
+    t.speed(0)
 
+    print("Enter gender")
+    print("(male, female) [leave blank for other]")
+    gender = input("> ").lower()
+    
     print("Enter colour of skin")
     print("(white, brown, black)")
     skin_color = input("> ").lower()
 
-    print("Enter colour of hair")
-    print("(black, brown, blonde)")
-    hair_color = input("> ").lower()
+    print("Bald? [y/n]")
+    bald = input("> ").lower()
 
-    print("Enter style of hair")
-    print("(short, long)")
-    hair_style = input("> ").lower()
+    if not bald:
+        print("Enter colour of hair")
+        print("(black, brown, blonde, gray)")
+        hair_color = input("> ").lower()
+
+        print("Enter style of hair")
+        print("(short, long)")
+        hair_style = input("> ").lower()
 
     print("Enter colour of eyes")
     print("(black, brown, blue, green)")
@@ -228,19 +250,44 @@ def main():
 
     print("Drawing...")
 
-    if hair_style == "long":
+    if (not bald) and (hair_style == "long"):
         draw_long_hair(hair_color, t)
 
     draw_face(skin_color, t)
-    draw_hair(hair_color, hair_style, t)
-    draw_forehead(skin_color, t)
+    
+    if not bald:
+        draw_hair(hair_color, hair_style, t)
+        draw_forehead(skin_color, t)
+    
     draw_eyes(eye_color, t)
-    draw_lips(t)
+    draw_lips(gender, t)
 
     if glasses == "y":
         draw_glasses(t)
 
-    input("Finished, press [ENTER] to quit...")
+    print("Finished")
+    input("Press [ENTER] to draw another face or [Ctrl-C] to quit...")
+
+    t.reset()
+
+def main():
+
+    NOTICE = """photofit Copyright (c) 2024 Oliver Nguyen 
+This program comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under certain conditions. See <gnu.org/licenses/>."""
+    
+    print("Welcome to photofit (v0.1.1:9e747ae, 26 Apr 2024)")
+    print()
+    print(NOTICE)
+    print()
+    print("Please report bugs to the GitHub repository")
+    print("<github.com/estella144/photofit/issues>")
+    print()
+    input("Press [ENTER] to start or [Ctrl-C] to quit")
+
+    while True:
+        main_loop()
 
 if __name__ == "__main__":
     main()
