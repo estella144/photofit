@@ -232,7 +232,7 @@ def main_loop():
     print("Bald? [y/n]")
     bald = input("> ").lower()
 
-    if not bald:
+    if bald != "y":
         print("Enter colour of hair")
         print("(black, brown, blonde, gray)")
         hair_color = input("> ").lower()
@@ -250,12 +250,12 @@ def main_loop():
 
     print("Drawing...")
 
-    if (not bald) and (hair_style == "long"):
+    if (bald != "y") and (hair_style == "long"):
         draw_long_hair(hair_color, t)
 
     draw_face(skin_color, t)
     
-    if not bald:
+    if bald != "y":
         draw_hair(hair_color, hair_style, t)
         draw_forehead(skin_color, t)
     
