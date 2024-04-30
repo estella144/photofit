@@ -117,6 +117,7 @@ def draw_glasses(current_turtle):
     t.pu()
     t.goto(-200, 100)
     t.pd()
+    t.color("black")
     t.seth(0)
 
     t.fd(75)
@@ -125,11 +126,43 @@ def draw_glasses(current_turtle):
     draw_glasses_lens(t)
     t.fd(75)
 
-def draw_mustache(color):
-    pass
+def draw_mustache(color, current_turtle):
+    """Draws upper part of hair"""
+    COLORS = {"black": "black",
+              "brown": "#341f0a",
+              "blonde": "#d7d67c",
+              "gray": "gray"}
 
-def draw_beard(color):
-    pass
+    turtle_color = COLORS[color]
+    t = current_turtle
+
+    t.pu()
+    t.goto(-50, 50)
+    t.seth(0)
+    t.width(10)
+    t.pd()
+    t.fd(100)
+    t.width(1)
+
+def draw_beard(color, current_turtle):
+    """Draws upper part of hair"""
+    COLORS = {"black": "black",
+              "brown": "#341f0a",
+              "blonde": "#d7d67c",
+              "gray": "gray"}
+
+    turtle_color = COLORS[color]
+    t = current_turtle
+
+    t.pu()
+    t.goto(-50, -25)
+    t.pd()
+
+    t.color(turtle_color)
+    t.seth(270)
+    t.begin_fill()
+    t.circle(75, 180)
+    t.end_fill()
 
 def draw_forehead(skin_color, current_turtle):
     """Draws forehead to reduce size of hair"""
@@ -230,9 +263,9 @@ def main_loop():
     skin_color = input("> ").lower()
 
     print("Bald? [y/n]")
-    bald = input("> ").lower()
+    is_bald = input("> ").lower()
 
-    if bald != "y":
+    if is_bald != "y":
         print("Enter colour of hair")
         print("(black, brown, blonde, gray)")
         hair_color = input("> ").lower()
@@ -246,23 +279,45 @@ def main_loop():
     eye_color = input("> ").lower()
 
     print("Glasses? [y/n]")
-    glasses = input("> ").lower()
+    has_glasses = input("> ").lower()
+
+    print("Has beard? [y/n]")
+    has_beard = input("> ").lower()
+
+    if has_beard == "y":
+        print("Enter colour of beard")
+        print("(black, brown, blonde, gray)")
+        beard_color = input("> ").lower()
+
+    print("Has beard? [y/n]")
+    has_mustache = input("> ").lower()
+
+    if has_mustache == "y":
+        print("Enter colour of mustache")
+        print("(black, brown, blonde, gray)")
+        mustache_color = input("> ").lower()
 
     print("Drawing...")
 
-    if (bald != "y") and (hair_style == "long"):
+    if (is_bald != "y") and (hair_style == "long"):
         draw_long_hair(hair_color, t)
 
     draw_face(skin_color, t)
     
-    if bald != "y":
+    if is_bald != "y":
         draw_hair(hair_color, hair_style, t)
         draw_forehead(skin_color, t)
     
     draw_eyes(eye_color, t)
     draw_lips(gender, t)
 
-    if glasses == "y":
+    if has_beard == "y":
+        draw_beard(beard_color, t)
+
+    if has_mustache == "y":
+        draw_mustache(mustache_color, t)
+
+    if has_glasses == "y":
         draw_glasses(t)
 
     print("Finished")
@@ -277,7 +332,7 @@ This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions. See <gnu.org/licenses/>."""
     
-    print("Welcome to photofit (v0.1.1:9e747ae, 26 Apr 2024)")
+    print("Welcome to photofit (v0.1.1:90fb556, 30 Apr 2024)")
     print()
     print(NOTICE)
     print()
