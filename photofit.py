@@ -16,7 +16,8 @@
 
 import turtle
 
-def draw_eye(turtle_color, x, y, current_turtle):
+def draw_eye(turtle_color: str, x: int, y: int, current_turtle: turtle.Turtle) -> None:
+    """Draws an eye at the specified coordinates."""
     t = current_turtle
 
     t.pu()
@@ -52,7 +53,7 @@ def draw_eye(turtle_color, x, y, current_turtle):
     t.circle(7.5)
     t.end_fill()
 
-def draw_eyes(color, current_turtle):
+def draw_eyes(color: str, current_turtle: turtle.Turtle) -> None:
     """Draws both eyes on face"""
     COLORS = {"black": "black",
               "brown": "#634e34",
@@ -65,7 +66,7 @@ def draw_eyes(color, current_turtle):
     draw_eye(turtle_color, 75, 75, t)
     draw_eye(turtle_color, -75, 75, t)
 
-def draw_lips(gender, current_turtle):
+def draw_lips(gender: str, current_turtle: turtle.Turtle) -> None:
     """Draws lips"""
     t = current_turtle
 
@@ -92,8 +93,10 @@ def draw_lips(gender, current_turtle):
     t.seth(0)
     t.fd(100)
 
-def draw_glasses_lens(current_turtle):
+def draw_glasses_lens(current_turtle: turtle.Turtle) -> None:
+    """Draws a circular lens."""
     t = current_turtle
+    
     # Positions turtle
     t.pu()
     t.fd(50)
@@ -111,7 +114,7 @@ def draw_glasses_lens(current_turtle):
     t.seth(0)
     t.pd()
 
-def draw_glasses(current_turtle):
+def draw_glasses(current_turtle: turtle.Turtle) -> None:
     """Draws glasses on face"""
     t = current_turtle
     t.pu()
@@ -126,8 +129,8 @@ def draw_glasses(current_turtle):
     draw_glasses_lens(t)
     t.fd(75)
 
-def draw_mustache(color, current_turtle):
-    """Draws upper part of hair"""
+def draw_mustache(color: str, current_turtle: turtle.Turtle) -> None:
+    """Draws mustache"""
     COLORS = {"black": "black",
               "brown": "#341f0a",
               "blonde": "#d7d67c",
@@ -137,15 +140,15 @@ def draw_mustache(color, current_turtle):
     t = current_turtle
 
     t.pu()
-    t.goto(-50, 50)
+    t.goto(-50, 25)
     t.seth(0)
     t.width(10)
     t.pd()
     t.fd(100)
     t.width(1)
 
-def draw_beard(color, current_turtle):
-    """Draws upper part of hair"""
+def draw_beard(color: str, current_turtle: turtle.Turtle) -> None:
+    """Draws beard"""
     COLORS = {"black": "black",
               "brown": "#341f0a",
               "blonde": "#d7d67c",
@@ -155,7 +158,7 @@ def draw_beard(color, current_turtle):
     t = current_turtle
 
     t.pu()
-    t.goto(-50, -25)
+    t.goto(-75, -25)
     t.pd()
 
     t.color(turtle_color)
@@ -164,7 +167,7 @@ def draw_beard(color, current_turtle):
     t.circle(75, 180)
     t.end_fill()
 
-def draw_forehead(skin_color, current_turtle):
+def draw_forehead(skin_color: str, current_turtle: turtle.Turtle) -> None:
     """Draws forehead to reduce size of hair"""
     COLORS = {"white": "wheat",
               "brown": "peru",
@@ -183,7 +186,7 @@ def draw_forehead(skin_color, current_turtle):
     t.circle(150, 180)
     t.end_fill()
 
-def draw_hair(color, style, current_turtle):
+def draw_hair(color: str, style: str, current_turtle: turtle.Turtle) -> None:
     """Draws upper part of hair"""
     COLORS = {"black": "black",
               "brown": "#341f0a",
@@ -203,7 +206,7 @@ def draw_hair(color, style, current_turtle):
     t.circle(200, 180)
     t.end_fill()
 
-def draw_long_hair(color, current_turtle):
+def draw_long_hair(color: str, current_turtle: turtle.Turtle) -> None:
     """Draws lower part of long hair"""
     COLORS = {"black": "black",
               "brown": "#341f0a",
@@ -229,7 +232,8 @@ def draw_long_hair(color, current_turtle):
 
     current_turtle.end_fill()
 
-def draw_face(skin_color, current_turtle):
+def draw_face(skin_color: str, current_turtle: turtle.Turtle) -> None:
+    """Draws face (not facial features)"""
     COLORS = {"white": "wheat",
               "brown": "peru",
               "black": "saddle brown"}
@@ -245,7 +249,8 @@ def draw_face(skin_color, current_turtle):
     current_turtle.circle(200)
     current_turtle.end_fill()
 
-def main_loop():
+def main_loop() -> None:
+    """Draws a face with facial features based on description."""
     print("Setting up turtle...")
 
     # Sets up turtle. Speed 0 = instant. Turtle hidden for further speed.
@@ -323,16 +328,18 @@ def main_loop():
     print("Finished")
     input("Press [ENTER] to draw another face or [Ctrl-C] to quit...")
 
+    # Reset to prepare for next iteration
     t.reset()
 
-def main():
+def main() -> None:
+    """Starts the program. Calls main_loop() to draw face."""
 
     NOTICE = """photofit Copyright (c) 2024 Oliver Nguyen
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions. See <gnu.org/licenses/>."""
 
-    print("Welcome to photofit (v0.1.1:90fb556, 30 Apr 2024)")
+    print("Welcome to photofit (v0.1.2:5d6ed4d, 5 May 2024)")
     print()
     print(NOTICE)
     print()
