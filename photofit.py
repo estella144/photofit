@@ -73,7 +73,7 @@ def draw_lips(gender, current_turtle):
                   "male": 10,
                   "female": 15}
     lip_width = LIP_WIDTHS[gender]
-    
+
     t.color("#e76a6a")
 
     t.pu()
@@ -257,7 +257,7 @@ def main_loop():
     print("Enter gender")
     print("(male, female) [leave blank for other]")
     gender = input("> ").lower()
-    
+
     print("Enter colour of skin")
     print("(white, brown, black)")
     skin_color = input("> ").lower()
@@ -289,7 +289,7 @@ def main_loop():
         print("(black, brown, blonde, gray)")
         beard_color = input("> ").lower()
 
-    print("Has beard? [y/n]")
+    print("Has mustache? [y/n]")
     has_mustache = input("> ").lower()
 
     if has_mustache == "y":
@@ -303,11 +303,11 @@ def main_loop():
         draw_long_hair(hair_color, t)
 
     draw_face(skin_color, t)
-    
+
     if is_bald != "y":
         draw_hair(hair_color, hair_style, t)
         draw_forehead(skin_color, t)
-    
+
     draw_eyes(eye_color, t)
     draw_lips(gender, t)
 
@@ -327,11 +327,11 @@ def main_loop():
 
 def main():
 
-    NOTICE = """photofit Copyright (c) 2024 Oliver Nguyen 
+    NOTICE = """photofit Copyright (c) 2024 Oliver Nguyen
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions. See <gnu.org/licenses/>."""
-    
+
     print("Welcome to photofit (v0.1.1:90fb556, 30 Apr 2024)")
     print()
     print(NOTICE)
